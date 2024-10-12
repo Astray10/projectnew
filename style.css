@@ -1,0 +1,323 @@
+:root {
+    --primary-color: #00bcd4;
+    --primary-color-hover: #0097a7;
+    --secondary-color: #ff4081;
+    --secondary-color-hover: #f50057;
+    --danger-color: #dc3545;
+    --danger-color-hover: #c62828;
+    --background-color: #121212;
+    --container-background: #1e1e1e;
+    --text-color: #e0e0e0;
+    --dark-border: #424242;
+    --light-yellow: #ffeb3b;
+    --light-red: #f8d7da;
+    --dark-gray: #212121;
+    --dark-red: #721c24;
+}
+/* Base Styles */
+body {
+    font-family: 'Roboto', sans-serif; /* Modern font */
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light gray text */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 900px; /* Wider container for better spacing */
+    margin: 50px auto;
+    padding: 30px; /* Increased padding for a more spacious feel */
+    background-color: #1e1e1e; /* Darker container */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Softer shadow */
+    border-radius: 10px; /* Slightly rounded corners */
+}
+
+/* Headings */
+h1 {
+    text-align: center;
+    color: #00bcd4; /* Cyan */
+    font-size: 2.5rem; /* Larger heading */
+    margin-bottom: 30px; /* Increased margin */
+}
+
+h2, h3 {
+    color: #ff4081; /* Pink */
+    margin-bottom: 15px; /* Increased space */
+    font-weight: 500; /* Slightly lighter font */
+}
+
+/* Section Styles */
+.search-container,
+.form-container,
+.inventory-container,
+.barcode-container,
+.supplier-container,
+.reporting-container {
+    margin: 20px 0;
+    padding: 20px; /* More padding for a spacious feel */
+    border: 1px solid #424242; /* Dark gray border */
+    border-radius: 5px;
+    transition: background-color 0.3s; /* Smooth transition */
+}
+tr:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Light hover effect */
+}
+
+
+.search-container:hover,
+.form-container:hover,
+.inventory-container:hover,
+.barcode-container:hover,
+.supplier-container:hover,
+.reporting-container:hover {
+    background-color: #2b2b2b; /* Slight hover effect */
+}
+
+/* Input and Button Styles */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    width: calc(100% - 20px); /* Adjust width to account for padding */
+    padding: 12px; /* Increased padding for comfort */
+    margin: 10px 0;
+    border: 1px solid #424242; /* Dark gray border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #2b2b2b; /* Dark input fields */
+    color: #e0e0e0; /* Light gray text */
+    font-size: 1rem; /* Consistent font size */
+    transition: border-color 0.3s; /* Smooth transition */
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus {
+    border-color: #00bcd4; /* Highlight border on focus */
+    outline: none; /* Remove default outline */
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    color: #121212; /* Dark text color */
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s; /* Added box-shadow transition */
+    margin: 5px; /* Added margin for spacing */
+    font-weight: 500; /* Slightly bolder text */
+}
+
+.button-primary {
+    background-color: var(--primary-color); /* Use CSS variable */
+}
+
+    .button-primary:hover {
+        background-color: var(--primary-color-hover);
+        transform: translateY(-2px); /* Slight lift effect */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Add shadow on hover */
+    }
+
+/* Similar adjustments for secondary and danger buttons */
+
+.button-secondary {
+    background-color: #ff4081; /* Pink */
+}
+
+.button-secondary:hover {
+    background-color: #f50057; /* Darker pink */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+.button-danger {
+    background-color: #dc3545; /* Red for delete */
+}
+
+.button-danger:hover {
+    background-color: #c62828; /* Darker red */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 8px; /* Increased padding for a balanced look */
+    text-align: center;
+}
+
+th {
+    background-color: #424242; /* Dark gray background for headers */
+    color: #e0e0e0; /* Light gray text for visibility */
+    font-weight: bold; /* Make text bold */
+    border: none; /* Remove borders around headers */
+}
+
+td {
+    border: 2px solid #424242; /* Add border only to cells */
+    color: #e0e0e0; /* Light gray text */
+    background-color: #1e1e1e; /* Dark background for table cells */
+}
+
+/* Adjusting the action buttons */
+.edit-btn,
+.delete-btn {
+    background-color: #00bcd4; /* Cyan for edit */
+    color: #121212; /* Dark text color */
+    padding: 5px 10px; /* Adjusted padding */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
+}
+
+.edit-btn:hover {
+    background-color: #0097a7; /* Darker cyan on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+.delete-btn {
+    background-color: #dc3545; /* Red for delete */
+}
+
+.delete-btn:hover {
+    background-color: #c62828; /* Darker red on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Highlighting Styles */
+.low-stock {
+    background-color: #ffeb3b; /* Light yellow background */
+    color: #212121; /* Dark gray text */
+}
+
+.expiring-soon {
+    background-color: #f8d7da; /* Light red background */
+    color: #721c24; /* Dark red text */
+}
+
+/* Supplier Management Styles */
+.supplier-container {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #1e1e1e; /* Darker container */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.supplier-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.supplier-list table, th, td {
+    border: 1px solid #424242; /* Dark gray border */
+}
+
+.supplier-list th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+.supplier-list th {
+    background-color: #424242; /* Dark gray */
+    color: #e0e0e0; /* Light gray text */
+}
+
+/* Image Preview Container */
+#imagePreviewContainer {
+    margin-top: 10px;
+}
+
+/* Pagination Controls */
+#paginationControls {
+    text-align: center;
+    margin: 20px 0;
+}
+@media (max-width: 768px) {
+    .container {
+        margin: 20px; /* Reduced margin on smaller screens */
+        padding: 15px; /* Less padding for a tighter layout */
+    }
+
+    h1 {
+        font-size: 2rem; /* Smaller heading on mobile */
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select,
+    button {
+        font-size: 0.9rem; /* Smaller buttons and inputs on mobile */
+    }
+
+    /* Adjust table for smaller screens */
+    table {
+        font-size: 0.9rem; /* Smaller font for table */
+    }
+}
+.live-reporting {
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #1e1e1e; /* Darker container for summary */
+    border-radius: 5px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.report-item {
+    margin: 15px 0;
+}
+
+    .report-item h3 {
+        color: #00bcd4; /* Cyan for headings */
+        margin: 0; /* Remove default margin */
+    }
+
+    .report-item p {
+        color: #e0e0e0; /* Light gray text */
+        font-size: 1.2rem; /* Slightly larger text */
+    }
+.dashboard-links {
+    margin: 20px 0;
+}
+
+.link-list {
+    list-style-type: none; /* Remove default list styles */
+    padding: 0;
+}
+
+    .link-list li {
+        margin: 10px 0; /* Spacing between links */
+    }
+
+    .link-list a {
+        color: var(--primary-color);
+        text-decoration: none; /* Remove underline */
+        font-size: 1.2rem; /* Slightly larger font */
+        transition: color 0.3s; /* Smooth color transition */
+    }
+
+        .link-list a:hover {
+            color: var(--primary-color-hover); /* Change color on hover */
+        }
+@media print {
+    body * {
+        visibility: hidden; /* Hide everything */
+    }
+
+    #billingDetails, #billingDetails * {
+        visibility: visible; /* Only show the billing details */
+    }
+
+    #billingDetails {
+        position: absolute; /* Ensure it’s printed properly */
+        left: 0;
+        top: 0;
+    }
+}

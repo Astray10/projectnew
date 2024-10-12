@@ -1,0 +1,26 @@
+/* dashboard.css */
+.dashboard-section {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+    .dashboard-section h2 {
+        margin-bottom: 15px;
+    }
+
+    .dashboard-section form {
+        margin-bottom: 15px;
+    }
+
+    .dashboard-section table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .dashboard-section table th, .dashboard-section table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }

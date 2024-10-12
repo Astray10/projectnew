@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Inventory Management</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Medical Inventory Management</h1>
+        <div class="container">
+            <h1>Dashboard</h1>
+            <div class="dashboard-links">
+                <h2>Quick Links</h2>
+                <ul class="link-list">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="employee_management.html">Employee Management</a></li>
+                    <li><a href='supplier_management.html'>Supplier Management</a></li>
+                    <li><a href="billing.html" class="button">Billing Management</a></li>
+                    <li><a href="login.html" id="logoutLink">Log Out</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <script>
+            document.getElementById('logoutLink').addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent default link behavior
+                // Clear session storage
+                sessionStorage.clear(); // Or localStorage.clear() if you are using local storage
+                // Redirect to login page
+                window.location.href = 'login.html'; // Change this to your login page URL
+            });
+        </script>
+        <!-- Loading Indicator -->
+        <div id="loading" style="display: none; text-align: center; color: #00bcd4;">Loading...</div>
+
+        <!-- Search and Filter Section -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search inventory..." aria-label="Search inventory" title="Enter item name or ID to search">
+            <label for="filterOptions">Filter:</label>
+            <select id="filterOptions" aria-label="Filter inventory">
+                <option value="">All Items</option>
+                <option value="lowStock">Low Stock</option>
+                <option value="expiringSoon">Expiring Soon</option>
+                <option value="specificSupplier">Specific Supplier</option>
+            </select>
+            <input type="text" id="specificSupplierInput" placeholder="Enter supplier name..." aria-label="Supplier Name" style="display: none;" title="Enter the name of the supplier">
+        </div>
+
+        <!-- Form to Add New Item -->
+        <div class="form-container">
+            <h3>Add New Item</h3>
+            <form id="inventoryForm">
+                <label for="name">Item Name:</label>
+                <input type="text" id="name" name="name" required title="Enter the name of the item">
+                <small>e.g., Aspirin, Bandage</small>
+
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" required title="Enter the quantity of the item">
+
+                <label for="expiryDate">Expiry Date:</label>
+                <input type="date" id="expiryDate" name="expiryDate" required title="Select the expiry date of the item">
+
+                <label for="supplier">Supplier:</label>
+                <select id="supplier" name="supplier" required title="Select a supplier">
+                    <option value="">Select a supplier</option>
+                    <!-- Supplier options will be populated here -->
+                </select>
+
+                <label for="category">Category:</label>
+                <select id="category" name="category" required title="Select a category">
+                    <option value="">Select a category</option>
+                    <option value="Medicines">Medicines</option>
+                    <option value="Equipment">Equipment</option>
+                    <option value="Consumables">Consumables</option>
+                </select>
+
+                <!-- Add Item Button -->
+                <button type="submit" class="button-primary">Add Item</button>
+            </form>
+        </div>
+
+        <!-- Barcode Scanner -->
+        <div class="barcode-container">
+            <h3>Scan Barcode</h3>
+            <input type="text" id="barcodeInput" placeholder="Scan or enter barcode..." aria-label="Barcode Input" title="Scan or enter the barcode of the item">
+            <button id="scanBtn" class="button-secondary">Scan Item</button>
+        </div>
+
+        <!-- Supplier Management Section -->
+        <div class="supplier-container">
+            <h2>Supplier Management</h2>
+            <form id="supplierForm">
+                <label for="supplierName">Supplier Name:</label>
+                <input type="text" id="supplierName" required title="Enter the supplier name">
+                <small>e.g., Supplier A, Supplier B</small>
+
+                <label for="supplierContact">Contact Info:</label>
+                <input type="text" id="supplierContact" required title="Enter the supplier contact information">
+
+                <button type="submit" class="button-primary">Add Supplier</button>
+            </form>
+
+            <div class="supplier-list">
+                <h3>Supplier List</h3>
+                <table id="supplierTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Contact Info</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Inventory List with Sorting -->
+        <div class="inventory-container">
+            <h3>Inventory List</h3>
+            <button id="printButton" class="button-secondary" style="margin-bottom: 10px;">Print Item List</button>
+            <table id="inventoryTable">
+                <thead>
+                    <tr>
+                        <th><button id="sortByName" aria-label="Sort by item name">Item Name</button></th>
+                        <th><button id="sortByQuantity" aria-label="Sort by quantity">Quantity</button></th>
+                        <th><button id="sortByExpiry" aria-label="Sort by expiry date">Expiry Date</button></th>
+                        <th><button id="sortBySupplier" aria-label="Sort by supplier">Supplier</button></th>
+                        <th><button id="sortByCategory" aria-label="Sort by category">Category</button></th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Inventory items will appear here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="paginationControls"></div>
+        <button id="exportButton" class="button-secondary">Export to CSV</button>
+
+        <!-- Reporting Section -->
+
+        <script>
+            document.getElementById('printButton').addEventListener('click', function () {
+                const tableRows = document.querySelectorAll('#inventoryTable tbody tr'); // Select all table rows
+                const printContent = `
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
+                                <th>Expiry Date</th>
+                                <th>Supplier</th>
+                                <th>Category</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${Array.from(tableRows).map(row => {
+                    const columns = row.querySelectorAll('td'); // Select all cells in the row
+                    return `
+                                    <tr>
+                                        <td>${columns[0].innerHTML}</td>
+                                        <td>${columns[1].innerHTML}</td>
+                                        <td>${columns[2].innerHTML}</td>
+                                        <td>${columns[3].innerHTML}</td>
+                                        <td>${columns[4].innerHTML}</td>
+                                    </tr>
+                                `;
+                }).join('')}
+                        </tbody>
+                    </table>
+                `; // Build the table excluding the actions column
+
+                const newWindow = window.open('', '', 'height=400,width=600'); // Open a new window for printing
+                newWindow.document.write('<html><head><title>Print Item List</title>'); // Write HTML
+                newWindow.document.write('<style>table { width: 100%; border-collapse: collapse; } th, td { padding: 12px; text-align: left; border-bottom: 1px solid #444; }</style>'); // Add some styles
+                newWindow.document.write('</head><body>');
+                newWindow.document.write('<h1>Inventory List</h1>'); // Add a title
+                newWindow.document.write(printContent); // Insert the inventory table
+                newWindow.document.write('</body></html>');
+                newWindow.document.close(); // Close the document
+                newWindow.print(); // Open the print dialog
+            });
+        </script>
+
+        <script src="script.js"></script>
+    </div>
+</body>
+</html>

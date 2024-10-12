@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management - Medical Inventory</title>
+    <link rel="stylesheet" href="style.css"> <!-- Include your CSS -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #1c1e21; /* Dark background for the whole page */
+            margin: 0;
+            padding: 20px;
+            color: #ffffff; /* White text for contrast */
+        }
+
+        .container {
+            background-color: #2c2f33; /* Darker grey for the container */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7); /* Darker shadow for depth */
+            max-width: 800px;
+            margin: auto;
+            text-align: left; /* Left-align text for a professional look */
+        }
+
+        h1 {
+            color: #007bff; /* Bright blue for headings */
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #f8f9fa; /* Lighter grey for subheadings */
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        input[type="date"],
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc; /* Light border for inputs */
+            border-radius: 4px; /* Rounded corners */
+            box-sizing: border-box;
+            background-color: #3e4145; /* Dark input background */
+            color: #ffffff; /* White text in inputs */
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #28a745; /* Green button */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+            button:hover {
+                background-color: #218838; /* Darker green on hover */
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #555; /* Light border for table cells */
+            color: #ffffff; /* White text for table cells */
+        }
+
+        th {
+            background-color: #007bff; /* Bright blue for header */
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #444; /* Dark grey for even rows */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee and Staff Management</h1>
+        <div class="employee-container">
+            <h2>Add New Employee</h2>
+            <form id="employeeForm">
+                <input type="text" id="employeeName" placeholder="Employee Name" required>
+                <input type="text" id="employeeRole" placeholder="Role" required>
+                <input type="number" id="employeeSalary" placeholder="Salary" required>
+                <input type="text" id="employeePhone" placeholder="Phone Number" required>
+                <input type="text" id="employeeAddress" placeholder="Address" required>
+                <input type="date" id="employeeDOB" placeholder="Date of Birth" required>
+                <input type="date" id="employeeHireDate" placeholder="Hire Date" required>
+                <button type="submit" class="button-primary">Add Employee</button>
+            </form>
+        </div>
+
+        <div class="employee-list">
+            <h2>Employee List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Salary</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Date of Birth</th>
+                        <th>Hire Date</th>
+                    </tr>
+                </thead>
+                <tbody id="employeeTableBody">
+                    <!-- Employee rows will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('employeeForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Get input values
+            const name = document.getElementById('employeeName').value;
+            const role = document.getElementById('employeeRole').value;
+            const salary = document.getElementById('employeeSalary').value;
+            const phone = document.getElementById('employeePhone').value;
+            const address = document.getElementById('employeeAddress').value;
+            const dob = document.getElementById('employeeDOB').value;
+            const hireDate = document.getElementById('employeeHireDate').value;
+
+            // Add new employee to the table
+            const tableBody = document.getElementById('employeeTableBody');
+            const newRow = `<tr>
+                                    <td>${name}</td>
+                                    <td>${role}</td>
+                                    <td>${salary}</td>
+                                    <td>${phone}</td>
+                                    <td>${address}</td>
+                                    <td>${dob}</td>
+                                    <td>${hireDate}</td>
+                                </tr>`;
+            tableBody.innerHTML += newRow;
+
+            // Clear input fields
+            document.getElementById('employeeForm').reset();
+        });
+    </script>
+</body>
+</html>

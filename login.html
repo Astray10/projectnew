@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Medical Inventory Management</title>
+    <link rel="stylesheet" href="style.css"> <!-- Include your CSS -->
+    <style>
+        /* Additional styles for login page */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212; /* Dark background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: #1e1e1e; /* Darker container */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 300px; /* Fixed width for the login box */
+            text-align: center;
+            color: #e0e0e0; /* Light text color */
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #00bcd4; /* Cyan for heading */
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin: 5px 0;
+            border: 1px solid #424242; /* Dark gray border */
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #2b2b2b; /* Dark input fields */
+            color: #e0e0e0; /* Light text color */
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #00bcd4; /* Use CSS variable */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            button:hover {
+                background-color: #0097a7; /* Darker cyan */
+            }
+
+        #error-message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Username" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="checkbox" id="showPassword"> Show Password
+            <div id="error-message"></div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript for login handling
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get input values
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            // Simple validation (you can add your own logic here)
+            if (username === 'admin' && password === 'password') {
+                // Redirect to the inventory management page on successful login
+                window.location.href = 'index.html'; // Change this to your inventory management page
+            } else {
+                errorMessage.textContent = 'Invalid username or password!';
+            }
+        });
+
+        // Show/hide password functionality
+        document.getElementById('showPassword').addEventListener('change', function () {
+            const passwordField = document.getElementById('password');
+            passwordField.type = this.checked ? 'text' : 'password';
+        });
+    </script>
+</body>
+</html>
